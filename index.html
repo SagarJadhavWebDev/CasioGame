@@ -1,0 +1,425 @@
+<php
+session_start();
+
+?>
+<!DOCTYPE html>
+<head>
+	<title>Slot Machine</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/ >
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"/ ></script>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+a{
+	color: #283593;
+	text-decoration: none;
+}
+h3{
+	margin-top: 12px;
+}
+*{
+	margin:0px;
+}
+body{
+	background-color: #424242;
+	font-family: 'Roboto', sans-serif;
+}
+main{
+
+}
+button:hover{
+border:none;
+outline:none;
+
+}
+section#status, p{
+	margin-bottom: 25px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	border-radius: 5px;
+	text-align: center;
+	background-color: #37474F;
+	color: #FFFFFF;
+	font-size: 25px;
+	font-family: 'Roboto Mono', monospace;
+}
+section#Slots{
+	border-radius: 15px;
+	background-color: #FAFAFA;
+}
+section#Gira{
+	margin-top: 25px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	border-radius: 5px;
+	text-align: center;
+	background-color: #AB47BC;
+	color: #FFFFFF;
+	font-size: 25px;
+}
+section#Gira:hover{
+	background-color: #BA68C8;
+}
+section#options{
+	margin-top: 20px;
+	padding-top: 5px;
+	border-radius: 5px;
+	background-color: #C62828;
+	color: #FFFFFF;
+}
+.option{
+	padding-left: 5px;
+}
+section#info{
+	background-color: #616161;
+	padding-left: 12px;
+	padding-bottom: 12px;
+	border-radius: 5px;
+	overflow: hidden;
+	animation-duration: 1s;
+	color: #BDBDBD;
+	margin-top: 50px;
+	margin-left: 30%;
+	margin-right: 30%;
+	display: none;
+}
+#slot1, #slot2, #slot3{
+	display: inline-block;
+
+justify-content: center;
+
+	background-size: 100px;
+	width: 100px;
+	height: 100px;
+}
+.a1{
+	background-image: url("https://image.flaticon.com/icons/svg/459/459535.svg");
+}
+.a2{
+	background-image: url("https://image.flaticon.com/icons/png/512/2108/2108097.png");
+}
+.a3{
+	background-image: url("https://image.flaticon.com/icons/png/512/2434/2434939.png");
+}
+.a4{
+	background-image: url("https://image.flaticon.com/icons/svg/148/148836.svg");
+}
+.a5{
+	background-image: url("https://image.flaticon.com/icons/svg/148/148905.svg");
+}
+.a6{
+	background-image: url("https://image.flaticon.com/icons/svg/445/445060.svg");
+}
+.a7{
+    
+	background-image: url("https://image.flaticon.com/icons/svg/590/590687.svg");
+}
+#h{
+display:none;
+}
+.f{
+float:left;
+display:inline-block;
+
+width:9rem;
+flex-grow: 1;
+margin-bottom:2rem;
+}
+img{
+width:4rem;
+height:4rem;
+margin-right:-4rem;
+}
+.s:disabled{
+width:5rem;
+
+}
+{
+background-color:red;
+}
+#re{
+
+}
+.w3-green{
+background-color:green;
+}
+
+</style>
+</head>
+<html>
+<body class="w3-red" onload="toggleAudio();hide();">
+
+<div id="main" class="w3-card-4 w3-padding w3-center w3-white">
+	<section id="status">WELCOME!</section>
+<label id="count"></label>
+
+	<section id="Slots"class=" ">
+		<div id="slot1" class="a1"></div>
+		<div id="slot2" class="a1"></div>
+		<div id="slot3" class="a1"></div>
+	</section>
+	<php 
+	echo "$_SESSION['username']";
+	?>
+	<label>
+	<button class="w3-padding w3-border-black  w3-round-xlarge w3-margin w3-card-4 " onclick="doSlot();clickFunc();"  id="Gira">TAKE A SPIN!</button>
+	<section id="options">
+<center>
+
+<label class=" w3-margin w3-centre" value="0" id="p"></label></center>
+	
+	</section>
+<center>
+<label id="h" class="w3-margin w3-padding">Try After 30 Min </label>
+</center>
+
+<!-- Creat Countdown Timer -->
+<article class="clock" id="model3">
+  <h3></h3>
+
+  <div class="count">
+    <div id="timer"></div>
+  </div>
+</article>
+</div></br>
+<center>
+
+<div id="re" class=" f  w3-margin w3-padding w3-card-4 ">
+<img  class="w3-margin "src="https://image.flaticon.com/icons/svg/2037/2037257.svg">
+<button id="re" class="  w3-card-4 s w3-round-xlarge w3-button ">Redeem at</br>200</button>
+</div>
+
+</br>
+
+<div id="re" class=" f  w3-padding w3-card-4 ">
+<img  class="w3-margin "src="https://image.flaticon.com/icons/svg/2037/2037257.svg">
+<button id="r" class="  w3-card-4 s w3-round-xlarge w3-button ">Redeem at</br>300</button>
+</div>
+
+
+
+
+
+
+</center>
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+
+function myclock() {
+var h3 = document.getElementsByTagName("h3");
+h3[0].innerHTML = "Try After 30 Min";
+
+var sec         = 3 ,
+    countDiv    = document.getElementById("timer"),
+    secpass,
+    countDown   = setInterval(function () {
+        'use strict';
+        
+        secpass();
+    }, 1000);
+
+function secpass() {
+    'use strict';
+    
+    var min     = Math.floor(sec / 60),
+        remSec  = sec % 60;
+    
+    if (remSec < 10) {
+        
+        remSec = '0' + remSec;
+    
+    }
+    if (min < 10) {
+        
+        min = '0' + min;
+    
+    }
+    countDiv.innerHTML = min + ":" + remSec;
+    
+    if (sec > 0) {
+        
+        sec = sec - 1;
+        
+    } else {
+        
+        clearInterval(countDown);
+        
+        var btn = document.getElementById('Gira');
+        btn.disabled = false;
+        window.location.reload();
+        
+    }
+}
+
+ } 
+ 
+
+
+var count = 0;
+function clickFunc() {
+count += 1;
+var click = document.getElementById('count').innerHTML = count;
+var btn = document.getElementById('Gira');
+var dis = document.getElementById('h');
+
+if(count == 3 ) {
+     btn.disabled = true;
+      setTimeout(doSomething, 3000);
+      
+      function doSomething() {
+      myclock();
+      }
+
+      }
+
+
+     
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+var doing = false;
+var spin = [new Audio("http://soundbible.com/1447-MP5.html"),new Audio("res/sounds/spin.mp3"),new Audio("res/sounds/spin.mp3"),new Audio("res/sounds/spin.mp3"),new Audio("res/sounds/spin.mp3"),new Audio("res/sounds/spin.mp3"),new Audio("res/sounds/spin.mp3")];
+var coin = [new Audio("res/sounds/coin.mp3"),new Audio("res/sounds/coin.mp3"),new Audio("res/sounds/coin.mp3")]
+var win = new Audio("res/sounds/win.mp3");
+var lose = new Audio("res/sounds/lose.mp3");
+var audio = false;
+let status = document.getElementById("status")
+var info = true;
+
+function doSlot(){
+
+
+
+
+	if (doing){return null;}
+	doing = true;
+	var numChanges = randomInt(1,2)*7
+	var numeberSlot1 = numChanges+randomInt(1,7)
+	var numeberSlot2 = numChanges+2*7+randomInt(1,7)
+	var numeberSlot3 = numChanges+4*7+randomInt(1,7)
+
+	var i1 = 0;
+	var i2 = 0;
+	var i3 = 0;
+	var sound = 0
+	status.innerHTML = "SPINNING"
+	slot1 = setInterval(spin1, 50);
+	slot2 = setInterval(spin2, 50);
+	slot3 = setInterval(spin3, 50);
+	function spin1(){
+		i1++;
+		if (i1>=numeberSlot1){
+			coin[0].play()
+			clearInterval(slot1);
+			return null;
+		}
+		slotTile = document.getElementById("slot1");
+		if (slotTile.className=="a7"){
+			slotTile.className = "a0";
+		}
+		slotTile.className = "a"+(parseInt(slotTile.className.substring(1))+1)
+	}
+	function spin2(){
+		i2++;
+		if (i2>=numeberSlot2){
+			coin[1].play()
+			clearInterval(slot2);
+			return null;
+		}
+		slotTile = document.getElementById("slot2");
+		if (slotTile.className=="a7"){
+			slotTile.className = "a0";
+		}
+		slotTile.className = "a"+(parseInt(slotTile.className.substring(1))+1)
+	}
+	function spin3(){
+		i3++;
+		if (i3>=numeberSlot3){
+			coin[2].play()
+			clearInterval(slot3);
+			testWin();
+			return null;
+		}
+		slotTile = document.getElementById("slot3");
+		if (slotTile.className=="a7"){
+			slotTile.className = "a0";
+		}
+		sound++;
+		if (sound==spin.length){
+			sound=0;
+		}
+		spin[sound].play();
+		slotTile.className = "a"+(parseInt(slotTile.className.substring(1))+1)
+	}
+}
+
+function testWin(){
+	var slot1 = document.getElementById("slot1").className
+	var slot2 = document.getElementById("slot2").className
+	var slot3 = document.getElementById("slot3").className
+
+
+if (((slot1 == slot2 && slot2 == slot3) ||
+	(slot1 == slot2 && slot3 == "a7") ||
+	(slot1 == slot3 && slot2 == "a7") ||
+	(slot2 == slot3 && slot1 == "a7") ||
+	(slot1 == slot2 && slot1 == "a7") ||
+	(slot1 == slot3 && slot1 == "a7") ||
+	(slot2 == slot3 && slot2 == "a7") ) && !(slot1 == slot2 && slot2 == slot3 && slot1=="a7"))
+		{
+		status.innerHTML = "YOU WIN!";
+		
+		var points = 0;
+		points += 200; 
+		var wi = document.getElementById('p').innerHTML = points;
+        var co = document.getElementById('re');
+        co.classList.add("w3-green");
+        var col = document.getElementById('r');
+        co.classList.add("w3-green");
+
+
+		win.play();
+	}else {
+		status.innerHTML = "YOU LOSE!"
+		lose.play();
+	}
+	
+	doing = false;
+}
+
+
+function randomInt(min, max){
+	return Math.floor((Math.random() * (max-min+1)) + min);
+	alert("fg")
+}
+
+
+
+
+
+</script>
+
+</body>
+</html>
